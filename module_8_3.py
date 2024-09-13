@@ -11,8 +11,14 @@ class IncorrectCarNumbers(Exception):
 class Car:
     def __init__(self, model, vin, numbers):
         self.model = model
-        self.__vin = self.__is_valid_vin(vin)
-        self.__numbers = self.__is_valid_numbers(numbers)
+        if self.__is_valid_vin(vin):
+            self.__vin = vin
+        else:
+            self.__vin = None
+        if self.__is_valid_numbers(numbers):
+            self.__numbers = numbers
+        else:
+            self.__numbers = None
 
     @staticmethod
     def __is_valid_vin(vin_number):
@@ -31,6 +37,10 @@ class Car:
             raise IncorrectCarNumbers('Неверная длина номера')
         else:
             return True
+
+    def __str__(self):
+        result = str([self.model, self.__vin, self.__numbers])
+        return result
 
 
 try:
